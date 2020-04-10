@@ -17,10 +17,14 @@ public class Run {
             System.out.println(block.getSquareNum());
         }*/
         game = new Game();
-        game.getGameBoard().print();
-        game.putter(putInputGetter(),1);
-        game.getGameBoard().print();
-        game.router(routeInputGetter());
+        for (int i = 0; i < 36; i++) {
+            int player = i%2 + 1;
+            game.getGameBoard().print();
+            while (!game.putter(putInputGetter(), player));
+            game.getGameBoard().print();
+            game.router(routeInputGetter());
+        }
+
     }
 
     /**

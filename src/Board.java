@@ -43,7 +43,7 @@ public class Board {
     private void emptyBoardMaker(){
         for (int j = 1; j < SIZE + 1; j++) {
             for (int i = 1; i < SIZE + 1; i++) {
-                blocks.add(new Block(j, i));
+                blocks.add(new Block(i, j));
             }
         }
         for (int s = 0; s < NUMBER_OF_SQUARE; s++) {

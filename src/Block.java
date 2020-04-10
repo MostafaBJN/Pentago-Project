@@ -50,6 +50,11 @@ public class Block {
         }
     }
 
+    public void changeCoordinates(int horizonNum, int verticalNum){
+        this.horizonNum = horizonNum;
+        this.verticalNum = verticalNum;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

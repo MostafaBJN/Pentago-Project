@@ -41,42 +41,50 @@ public class Game {
         return false;
     }
 
+    private void changeTwoBlock (int a, int b, int square){
+        Block blockA = getGameBoard().getSquaredBlocks().get(square).get(a);
+        Block blockB = getGameBoard().getSquaredBlocks().get(square).get(b);
+
+        gameBoard.getSquaredBlocks().get(square).set(a, blockB);
+        gameBoard.getSquaredBlocks().get(square).set(b, blockA);
+
+        int aa = a%3 + (a/3)*Board.SIZE + ((square % 2) * (Board.SIZE_OF_SQUARE)) + ((square / 2) * (Board.SIZE_OF_SQUARE * Board.SIZE));
+        int bb = b%3 + (b/3)*Board.SIZE + ((square % 2) * (Board.SIZE_OF_SQUARE)) + ((square / 2) * (Board.SIZE_OF_SQUARE * Board.SIZE));
+
+        gameBoard.getBlocks().set(bb, blockA);
+        gameBoard.getBlocks().set(aa, blockB);
+
+        blockB.changeCoordinates(a%3 + (square % 2) * (Board.SIZE_OF_SQUARE) + 1, a/3 + (square / 2) * (Board.SIZE_OF_SQUARE) + 1);
+        blockA.changeCoordinates(b%3 + (square % 2) * (Board.SIZE_OF_SQUARE) + 1, b/3 + (square / 2) * (Board.SIZE_OF_SQUARE) + 1);
+    }
+
     public void router (int sd){
-        int square;
+        int square = -1;
+        Block tempBlock;
         if (sd > 0)
         {
-            square = (sd - 1);
-            game_board_temp = game_board[s][2][0];
-            game_board[s][2][0] = game_board[s][0][0];
-            game_board[s][0][0] = game_board[s][0][2];
-            game_board[s][0][2] = game_board[s][2][2];
-            game_board[s][2][2] = game_board_temp;
-            Block tempBlock = gameBoard.getSquaredBlocks().get(square).get(6);
-            gameBoard.getSquaredBlocks().get(square).remove(6);
-            gameBoard.getSquaredBlocks().get(square).add(6,gameBoard.getSquaredBlocks().get(square).get(0));
-
-            game_board_temp = game_board[s][0][1];
-            game_board[s][0][1] = game_board[s][1][2];
-            game_board[s][1][2] = game_board[s][2][1];
-            game_board[s][2][1] = game_board[s][1][0];
-            game_board[s][1][0] = game_board_temp;
-
+            square += sd;
+            //four corners route
+            changeTwoBlock(0, 2, square);
+            changeTwoBlock(6, 0, square);
+            changeTwoBlock(8, 6, square);
+            //four middles route
+            changeTwoBlock(1, 5, square);
+            changeTwoBlock(3, 1, square);
+            changeTwoBlock(7, 3, square);
         }
         else
         {
-            square = -(sd + 1);
-            game_board_temp = game_board[s][0][2];
-            game_board[s][0][2] = game_board[s][0][0];
-            game_board[s][0][0] = game_board[s][2][0];
-            game_board[s][2][0] = game_board[s][2][2];
-            game_board[s][2][2] = game_board_temp;
-
-            game_board_temp = game_board[s][1][0];
-            game_board[s][1][0] = game_board[s][2][1];
-            game_board[s][2][1] = game_board[s][1][2];
-            game_board[s][1][2] = game_board[s][0][1];
-            game_board[s][0][1] = game_board_temp;
-        }//ravesh copy kardan (abcd)
+            square -= sd;
+            //four corners route
+            changeTwoBlock(8, 6, square);
+            changeTwoBlock(6, 0, square);
+            changeTwoBlock(0, 2, square);
+            //four middles route
+            changeTwoBlock(7, 3, square);
+            changeTwoBlock(3, 1, square);
+            changeTwoBlock(1, 5, square);
+        }
     }
 
     /**
