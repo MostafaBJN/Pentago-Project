@@ -18,7 +18,7 @@ public class Block {
     private int verticalNum;
     //square placed : 1,2,3,4
     private int squareNum;
-    //State of block : Empty = 0 , White = 1 , Black = 2
+    //State of block : Empty = 0 , Red = 1 , Black = 2
     private int state;
 
     /**
@@ -53,6 +53,13 @@ public class Block {
     public void changeCoordinates(int horizonNum, int verticalNum){
         this.horizonNum = horizonNum;
         this.verticalNum = verticalNum;
+    }
+
+    public boolean stateEquality(Block block){
+        if(block.getState() == state)
+            return true;
+        else
+            return false;
     }
 
     @Override

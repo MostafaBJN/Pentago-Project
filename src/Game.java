@@ -87,6 +87,86 @@ public class Game {
         }
     }
 
+    public boolean winConditions(int player){
+        //Horizontal Check
+        for (int j = 0; j < 6; j++) {
+            for (int i = 0; i < 2; i++) {
+                if(gameBoard.getBlocks().get(j * Board.SIZE + i).getState() == player) {
+                    for (int e = 0; e < 4; e++) {
+                        System.out.println("E = " + e + " i = " + i + " j = " + j);
+                        if (!(gameBoard.getBlocks().get((j * Board.SIZE) + (i + e)).stateEquality(gameBoard.getBlocks().get((j * Board.SIZE) + (i + e + 1))))) {
+                            break;
+                        }
+                        if (e == 3) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        //Vertical Check
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 2; j++) {
+                if(gameBoard.getBlocks().get(j * Board.SIZE + i).getState() == player) {
+                    for (int e = 0; e < 4; e++) {
+                        System.out.println("E = " + e + " i = " + i + " j = " + j);
+                        if (!(gameBoard.getBlocks().get(((j + e) * Board.SIZE) + i).stateEquality(gameBoard.getBlocks().get(((j + e + 1) * Board.SIZE) + i)))) {
+                            break;
+                        }
+                        if (e == 3) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        for (int i = Board.SIZE - 1; i > 3; i--) {
+            for (int j = Board.SIZE - 1; j > 3; j--) {
+                if(gameBoard.getBlocks().get(j * Board.SIZE + i).getState() == player) {
+                    for (int e = 0; e < 4; e++) {
+                        if (!(gameBoard.getBlocks().get(((j + e) * Board.SIZE) + (i - e)).equals((gameBoard.getBlocks().get(((j + e + 1)* Board.SIZE) + (i - (e + 1))))))) {
+                            break;
+                        }
+                        if (e == 3) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        //Crisscross Check Up to Left
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                if(gameBoard.getBlocks().get(j * Board.SIZE + i).getState() == player) {
+                    for (int e = 0; e < 4; e++) {
+                        if (!(gameBoard.getBlocks().get(((j + e) * Board.SIZE) + (i + e)).equals((gameBoard.getBlocks().get(((j + e + 1)* Board.SIZE) + (i + e + 1)))))) {
+                            break;
+                        }
+                        if (e == 3) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        //Crisscross Check Up to Right
+        for (int i = Board.SIZE - 1; i > 3; i--) {
+            for (int j = Board.SIZE - 1; j > 3; j--) {
+                if(gameBoard.getBlocks().get(j * Board.SIZE + i).getState() == player) {
+                    for (int e = 0; e < 4; e++) {
+                        if (!(gameBoard.getBlocks().get(((j + e) * Board.SIZE) + (i - e)).equals((gameBoard.getBlocks().get(((j + e + 1)* Board.SIZE) + (i - (e + 1))))))) {
+                            break;
+                        }
+                        if (e == 3) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     /**
      * getter for Board of game
      *

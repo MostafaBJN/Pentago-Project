@@ -21,8 +21,12 @@ public class Run {
             int player = i%2 + 1;
             game.getGameBoard().print();
             while (!game.putter(putInputGetter(), player));
-            game.getGameBoard().print();
-            game.router(routeInputGetter());
+            //game.getGameBoard().print();
+            //game.router(routeInputGetter());
+            if(game.winConditions(player)) {
+                System.out.println("!!!!WIN!!!!");
+                break;
+            }
         }
 
     }
