@@ -42,6 +42,9 @@ public class Block {
      */
     public void colorBlock(int player){
         state = player;
+        if(player == 0) {
+            sign = EMPTY_BLOCK;
+        }
         if(player == 1) {
             sign = RED_CIRCLE;
         }
@@ -99,4 +102,5 @@ public class Block {
     public void setSquareNum(int squareNum) {
         this.squareNum = squareNum;
     }
+
 }
