@@ -3,7 +3,7 @@ import java.util.Objects;
 /**
  * This Class is for each Block in the Board
  *
- * @version 0.2
+ * @version 0.3
  * @author Mostafa_BJN
  */
 public class Block {
@@ -53,16 +53,25 @@ public class Block {
         }
     }
 
+    /**
+     * Change Coordinates of Block
+     *
+     * @param horizonNum new Horizontal Coordinate
+     * @param verticalNum new Vertical Coordinate
+     */
     public void changeCoordinates(int horizonNum, int verticalNum){
         this.horizonNum = horizonNum;
         this.verticalNum = verticalNum;
     }
 
+    /**
+     * get a block and check state equality
+     *
+     * @param block block to check
+     * @return equality of states
+     */
     public boolean stateEquality(Block block){
-        if(block.getState() == state)
-            return true;
-        else
-            return false;
+        return block.getState() == state;
     }
 
     @Override
@@ -79,28 +88,57 @@ public class Block {
         return Objects.hash(horizonNum, verticalNum);
     }
 
+    /**
+     * getter for sign
+     *
+     * @return sign
+     */
     public String getSign() {
         return sign;
     }
 
+    /**
+     * getter for horizonNum
+     *
+     * @return Horizontal Coordinates
+     */
     public int getHorizonNum() {
         return horizonNum;
     }
 
+    /**
+     * getter for verticalNum
+     *
+     * @return Vertical Coordinates
+     */
     public int getVerticalNum() {
         return verticalNum;
     }
 
+    /**
+     * getter for squareNum
+     *
+     * @return square of Block
+     */
     public int getSquareNum() {
         return squareNum;
     }
 
+    /**
+     * getter for state
+     *
+     * @return state of Block
+     */
     public int getState() {
         return state;
     }
 
+    /**
+     * setter for squareNum
+     *
+     * @param squareNum Number of Square of Block
+     */
     public void setSquareNum(int squareNum) {
         this.squareNum = squareNum;
     }
-
 }

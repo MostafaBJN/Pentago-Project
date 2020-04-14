@@ -1,10 +1,11 @@
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Pentago game class
  *
- * @version 0
+ * @version 1.0
  * @author Mostafa_BJN
  */
 public class Game {
@@ -17,6 +18,13 @@ public class Game {
      */
     public Game(){
         gameBoard = new Board();
+        makeEmptyList();
+    }
+
+    /**
+     * make an Empty states list
+     */
+    public void makeEmptyList(){
         statesList = new ArrayList<ArrayList<Integer>>();
         for (int i = 0; i < 36; i++) {
             statesList.add(new ArrayList<Integer>());
@@ -48,10 +56,11 @@ public class Game {
     }
 
     /**
+     * change place of 2 blocks in lists
      *
-     * @param a
-     * @param b
-     * @param square
+     * @param a block first number in scale of a 3*3 square
+     * @param b block second number in scale of a 3*3 square
+     * @param square square of blocks
      */
     private void changeTwoBlock (int a, int b, int square){
         Block blockA = getGameBoard().getSquaredBlocks().get(square).get(a);
@@ -71,9 +80,9 @@ public class Game {
     }
 
     /**
+     * route selected square to Left or Right
      *
-     *
-     * @param sd
+     * @param sd square with direct to route
      */
     public void router (int sd){
         int square = -1;
@@ -175,23 +184,64 @@ public class Game {
     }
 
     /**
+     * playing with system
      *
+     * @param player system turn
+     */
+    public void playWithSystem(int player){
+        while (!putter(systemPutter(), player));
+        getGameBoard().print();
+        router(systemRouter());
+    }
+
+    /**
+     * System selects a random place
      *
-     * @param time
+     * @return block to put
+     */
+    private Block systemPutter(){
+        int min = 1;
+        int max = 6;
+        int v = ThreadLocalRandom.current().nextInt(min, max + 1);
+        int h = ThreadLocalRandom.current().nextInt(min, max + 1);
+        return new Block(h, v);
+    }
+
+    /**
+     * System selects a random square with a random direction to route
+     *
+     * @return square with direction to route
+     */
+    private int systemRouter() {
+        int min = 1;
+        int max = 4;
+        int s = ThreadLocalRandom.current().nextInt(min, max + 1);
+        max = 2;
+        int dir = ThreadLocalRandom.current().nextInt(min, max + 1);
+        if(dir == 2)
+            return -s;
+        else
+            return s;
+    }
+
+    /**
+     * save states of all blocks of board
+     *
+     * @param time save board of time
      */
     public void saveStates(int time){
+        statesList.get(time).clear();
         for (Block block:gameBoard.getBlocks()) {
             statesList.get(time).add(block.getState());
         }
     }
 
     /**
+     * load states of a board to gameBoard
      *
-     *
-     * @param time
+     * @param time load saved board in this time
      */
     public void loadStates (int time) {
-        System.out.println("Hello " + time + " Size : " + statesList.get(time).size());
         for (int i = 0; i < statesList.get(time).size(); i ++) {
             gameBoard.getBlocks().get(i).colorBlock(statesList.get(time).get(i));
         }

@@ -3,7 +3,7 @@ import java.util.ArrayList;
 /**
  * Board class is for the board of Pentago game.
  *
- * @version 0
+ * @version 0.8
  * @author Mostafa_BJN
  */
 public class Board {
